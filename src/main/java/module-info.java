@@ -11,6 +11,7 @@ module org.example.magentacinema {
     requires java.sql;
     requires javafx.graphics;
     requires javafx.base;
+    requires mysql.connector.j;
 
     opens org.example.magentacinema to javafx.fxml;
     exports org.example.magentacinema;

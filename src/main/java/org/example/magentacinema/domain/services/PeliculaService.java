@@ -1,6 +1,5 @@
 package org.example.magentacinema.domain.services;
 
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import org.example.magentacinema.domain.entities.Pelicula;
 import org.example.magentacinema.infraestructure.interfaces.CarteleraRepository;
@@ -8,7 +7,6 @@ import org.example.magentacinema.infraestructure.interfaces.CarteleraRepository;
 /**
  * Servicio de películas se utilizará siempre en casos de uso, por lo tanto, la mayoría de
  * métodos utilitarios para llevar a cabo los casos de uso tendrán que ser construídos aqui.
- *
  * En este clase se combina la capa de infraestructura con la de dominio para llevar a
  * cabo acciones precisas que posteriormente serán manejadas por controladores en la
  * capa de presentación utilizando el facade-adaptador de la capa de aplicación (casos de uso)

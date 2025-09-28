@@ -17,8 +17,8 @@ import java.io.IOException;
  */
 public class MenuPrincipalController {
     @FXML private Button btnAgregarPelicula;
-    @FXML private Button btnModificarPelicula;
-    @FXML private Button btnEliminarPelicula;
+//    @FXML private Button btnModificarPelicula;
+//    @FXML private Button btnEliminarPelicula;
 
     @FXML
     protected void onAgregarPelicula() {

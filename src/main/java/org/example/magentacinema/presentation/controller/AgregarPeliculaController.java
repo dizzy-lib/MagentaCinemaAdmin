@@ -74,12 +74,14 @@ public class AgregarPeliculaController {
         this.agregarPeliculaUseCase.ejecutar(nuevaPelicula);
 
         String mensaje = String.format(
-                "Película guardada exitosamente:\n\n" +
-                        "Título: %s\n" +
-                        "Director: %s\n" +
-                        "Año: %d\n" +
-                        "Género: %s\n" +
-                        "Duración: %d minutos",
+                """
+                        Película guardada exitosamente:
+                        
+                        Título: %s
+                        Director: %s
+                        Año: %d
+                        Género: %s
+                        Duración: %d minutos""",
                 titulo, director, anno, genero, duracion
         );
 
@@ -191,8 +193,8 @@ public class AgregarPeliculaController {
             // Validar rango cuando tiene 4 dígitos
             if (newValue.length() == 4) {
                 try {
-                    int año = Integer.parseInt(newValue);
-                    if (año < 1 || año > 9999) {
+                    int anno = Integer.parseInt(newValue);
+                    if (anno < 1 || anno > 9999) {
                         this.anno.setText(oldValue);
                     }
                 } catch (NumberFormatException e) {
@@ -202,7 +204,7 @@ public class AgregarPeliculaController {
         });
 
         // Validación cuando pierde el foco
-        this.anno.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+        this.anno.focusedProperty().addListener((obs, _, isNowFocused) -> {
             if (!isNowFocused && !this.anno.getText().isEmpty()) {
                 validarAnnoCompleto();
             }
@@ -211,7 +213,7 @@ public class AgregarPeliculaController {
 
     private void configurarValidacionDuracion() {
         // Validación en tiempo real para la duración
-        this.duracion.textProperty().addListener((observable, oldValue, newValue) -> {
+        this.duracion.textProperty().addListener((_, oldValue, newValue) -> {
             // Solo permitir números
             if (!newValue.matches("\\d*")) {
                 this.duracion.setText(newValue.replaceAll("[^\\d]", ""));
