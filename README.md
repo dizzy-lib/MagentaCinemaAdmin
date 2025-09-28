@@ -1,5 +1,8 @@
 # Magenta Cinema
 
+![modificar_pelicula.png](public/modificar_pelicula.png)
+
+
 Para levantar el proyecto en local se debe crear un archivo `.env` en el directorio principal (a nivel del archivo `.env.example`).
 
 Variables a configurar:
@@ -8,6 +11,7 @@ Variables a configurar:
 - DATABASE_PASSWORD
 
 Con esta información se podrá lograr una conexión con la base de datos y poder ejecutar las transacciones.
+
 
 ## Estructura
 El archivo con el cual se debe inicializar el aplicativo es `Launcher.java` este vendría a ser el punto de entrada de la
@@ -51,4 +55,3 @@ instalar en la base de datos MySQL para que el programa pueda leerlos y funciona
 # Screenshots
 
 ![agregar_pelicula.png](public/agregar_pelicula.png)
-![modificar_pelicula.png](public/modificar_pelicula.png)
