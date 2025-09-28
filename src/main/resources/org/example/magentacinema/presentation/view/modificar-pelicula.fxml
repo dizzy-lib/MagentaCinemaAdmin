@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.magentacinema.presentation.controller.ModificarPeliculaController"
+            >
+    <VBox spacing="30" maxWidth="Infinity">
+        <padding>
+            <Insets top="16" right="16" bottom="16" left="16" />
+        </padding>
+        <HBox spacing="24">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: 700;">Modificar película</Label>
+            <VBox alignment="CENTER_RIGHT">
+                <Button fx:id="btnVolver" onAction="#onVolver">Volver</Button>
+            </VBox>
+        </HBox>
+
+        <VBox spacing="16">
+            <VBox spacing="4">
+                <Label >Nombre</Label>
+                <TextField fx:id="titulo" promptText="Ingresa el título de la película" />
+            </VBox>
+
+            <HBox alignment="BOTTOM_RIGHT" spacing="16">
+                <Button alignment="BASELINE_RIGHT" fx:id="bntBuscar" onAction="#onBuscarClick">Buscar</Button>
+                <Button alignment="BASELINE_RIGHT" fx:id="btnLimpiarCampos" onAction="#onLimpiarCampos">Limpiar</Button>
+            </HBox>
+        </VBox>
+        <VBox spacing="16">
+            <Label>Resultados encontrados</Label>
+            <TableView fx:id="tablaResultados">
+                <columns>
+                    <TableColumn fx:id="colTitulo" prefWidth="200" text="Título" />
+                    <TableColumn fx:id="colDirector" prefWidth="150" text="Director" />
+                    <TableColumn fx:id="colAnno" text="Año" />
+                    <TableColumn fx:id="colGenero" prefWidth="120" text="Género" />
+                    <TableColumn fx:id="colDuracion" prefWidth="100" text="Duración" />
+                    <TableColumn fx:id="colAcciones" prefWidth="100" text="Acciones" />
+                </columns>
+                <placeholder>
+                    <Label>No se encontraron resultados</Label>
+                </placeholder>
+            </TableView>
+        </VBox>
+    </VBox>
+
+</AnchorPane>

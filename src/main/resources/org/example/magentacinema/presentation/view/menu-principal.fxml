@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.magentacinema.presentation.controller.MenuPrincipalController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="30">
+        <padding>
+            <Insets top="16" right="16" bottom="16" left="16" />
+        </padding>
+        <Label style="-fx-font-size: 24px; -fx-font-weight: 700;">Menu principal</Label>
+
+        <HBox spacing="24">
+            <VBox prefWidth="200" spacing="8">
+                <Button prefWidth="200" onAction="#onAgregarPelicula" fx:id="btnAgregarPelicula">Agregar película</Button>
+                <Button prefWidth="200" onAction="#onModificarPelicula" fx:id="btnModificarPelicula">Modificar película</Button>
+                <Button prefWidth="200" onAction="#onEliminarPelicula" fx:id="btnEliminarPelicula">Eliminar película</Button>
+            </VBox>
+            <VBox>
+                <Label>Desripción del proyecto</Label>
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>

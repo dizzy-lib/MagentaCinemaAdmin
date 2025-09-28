@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.magentacinema.presentation.controller.EditarPeliculaController"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox spacing="30" maxWidth="Infinity">
+        <padding>
+            <Insets top="16" right="16" bottom="16" left="16" />
+        </padding>
+        <HBox spacing="24">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: 700;">Editar película</Label>
+            <VBox alignment="CENTER_RIGHT">
+                <Button fx:id="btnVolver" onAction="#onVolver">Volver</Button>
+            </VBox>
+        </HBox>
+
+        <VBox spacing="16">
+            <VBox spacing="4">
+                <Label >Nombre</Label>
+                <TextField fx:id="titulo" promptText="Ingresa el título de la película" />
+            </VBox>
+
+            <VBox spacing="4">
+                <Label>Director</Label>
+                <TextField fx:id="director" promptText="Ingresa el director" />
+            </VBox>
+
+            <HBox spacing="16">
+                <VBox spacing="4">
+                    <Label>Año</Label>
+                    <TextField fx:id="anno" promptText="2023" />
+                </VBox>
+
+                <VBox spacing="4">
+                    <Label>Duración</Label>
+                    <TextField fx:id="duracion" promptText="Duración en minutos" />
+                </VBox>
+            </HBox>
+
+            <VBox spacing="4">
+                <Label>Genero</Label>
+                <ComboBox fx:id="cmbGenero" promptText="Selecciona un género" />
+            </VBox>
+        </VBox>
+
+        <!-- botones de acción -->
+        <HBox spacing="16" alignment="BOTTOM_RIGHT">
+            <Button fx:id="btnModificar" onAction="#onModificar">Modificar</Button>
+        </HBox>
+    </VBox>
+
+</AnchorPane>
