@@ -21,7 +21,7 @@
                 <Button prefWidth="200" onAction="#onEliminarPelicula" fx:id="btnEliminarPelicula">Eliminar película</Button>
             </VBox>
             <VBox>
-                <Label>Desripción del proyecto</Label>
+                <Label>Magenta Cinema: Sistema de Gestion Cartelera</Label>
             </VBox>
         </HBox>
     </VBox>
