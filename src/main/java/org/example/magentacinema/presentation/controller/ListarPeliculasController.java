@@ -30,7 +30,8 @@ public class ListarPeliculasController implements Initializable {
     // Campos de búsqueda
     @FXML private TextField titulo;
     @FXML private TextField director;
-    @FXML private TextField anno;
+    @FXML private TextField annoDesde;
+    @FXML private TextField annoHasta;
     @FXML private ComboBox<Genero> cmbGenero;
 
 
@@ -57,56 +58,11 @@ public class ListarPeliculasController implements Initializable {
         this.obtenerTodasLasPeliculasUseCase = new ObtenerTodasLasPeliculasUseCase(peliculaService);
 
         configurarGenero();
-        configurarValidacionAnio();
+        configurarValidacionAnios();
 
         configurarTabla();
         cargarDatos();
 
-    }
-
-    private void configurarValidacionAnio() {
-        // Validación en tiempo real para el año
-        this.anno.textProperty().addListener((_, oldValue, newValue) -> {
-            // Solo permitir números
-            if (!newValue.matches("\\d*")) {
-                this.anno.setText(newValue.replaceAll("[^\\d]", ""));
-                return;
-            }
-
-            // Limitar a 4 dígitos máximo
-            if (newValue.length() > 4) {
-                this.anno.setText(oldValue);
-                return;
-            }
-
-            // Validar rango cuando tiene 4 dígitos
-            if (newValue.length() == 4) {
-                try {
-                    int anno = Integer.parseInt(newValue);
-                    if (anno < 1 || anno > 9999) {
-                        this.anno.setText(oldValue);
-                    }
-                } catch (NumberFormatException e) {
-                    this.anno.setText(oldValue);
-                }
-            }
-        });
-
-        // Validación cuando pierde el foco
-        this.anno.focusedProperty().addListener((obs, _, isNowFocused) -> {
-            if (!isNowFocused && !this.anno.getText().isEmpty()) {
-                validarAnnoCompleto();
-            }
-        });
-    }
-
-    private void validarAnnoCompleto() {
-        String texto = this.anno.getText();
-        if (texto.length() < 4 && !texto.isEmpty()) {
-            mostrarAlerta("Error de validación",
-                    "El año debe tener exactamente 4 dígitos");
-            this.anno.requestFocus();
-        }
     }
 
     @FXML
@@ -157,7 +113,6 @@ public class ListarPeliculasController implements Initializable {
         filtrarPeliculas();
     }
 
-
     private void filtrarPeliculas() {
         // Obtener valores de búsqueda de forma segura
         String tituloBusqueda = (this.titulo != null && this.titulo.getText() != null)
@@ -168,13 +123,48 @@ public class ListarPeliculasController implements Initializable {
                 ? this.director.getText().toLowerCase().trim()
                 : "";
 
-        String annoBusqueda = (this.anno != null && this.anno.getText() != null)
-                ? this.anno.getText().trim()
+        String annoDesdeText = (this.annoDesde != null && this.annoDesde.getText() != null)
+                ? this.annoDesde.getText().trim()
+                : "";
+
+        String annoHastaText = (this.annoHasta != null && this.annoHasta.getText() != null)
+                ? this.annoHasta.getText().trim()
                 : "";
 
         Genero generoBusqueda = (this.cmbGenero != null)
                 ? this.cmbGenero.getValue()
                 : null;
+
+        // Parsear años del rango
+        Integer annoDesde = null;
+        Integer annoHasta = null;
+
+        if (!annoDesdeText.isEmpty()) {
+            try {
+                annoDesde = Integer.parseInt(annoDesdeText);
+            } catch (NumberFormatException e) {
+                mostrarAlerta("Error de validación", "El año desde debe ser un número válido");
+                return;
+            }
+        }
+
+        if (!annoHastaText.isEmpty()) {
+            try {
+                annoHasta = Integer.parseInt(annoHastaText);
+            } catch (NumberFormatException e) {
+                mostrarAlerta("Error de validación", "El año hasta debe ser un número válido");
+                return;
+            }
+        }
+
+        // Validar que el rango sea coherente
+        if (annoDesde != null && annoHasta != null && annoDesde > annoHasta) {
+            mostrarAlerta("Error de validación", "El año desde no puede ser mayor que el año hasta");
+            return;
+        }
+
+        final Integer annoDesdeF = annoDesde;
+        final Integer annoHastaF = annoHasta;
 
         List<Pelicula> resultados = todasLasPeliculas.stream()
                 .filter(pelicula -> {
@@ -186,15 +176,13 @@ public class ListarPeliculasController implements Initializable {
                     boolean cumpleDirector = directorBusqueda.isEmpty() ||
                             pelicula.getDirector().toLowerCase().contains(directorBusqueda);
 
-                    // Filtro por año (coincidencia exacta)
+                    // Filtro por rango de años
                     boolean cumpleAnno = true;
-                    if (!annoBusqueda.isEmpty()) {
-                        try {
-                            int annoInt = Integer.parseInt(annoBusqueda);
-                            cumpleAnno = pelicula.getAnno() == annoInt;
-                        } catch (NumberFormatException e) {
-                            cumpleAnno = false;
-                        }
+                    if (annoDesdeF != null) {
+                        cumpleAnno = pelicula.getAnno() >= annoDesdeF;
+                    }
+                    if (annoHastaF != null) {
+                        cumpleAnno = cumpleAnno && pelicula.getAnno() <= annoHastaF;
                     }
 
                     // Filtro por género (coincidencia exacta)
@@ -212,13 +200,15 @@ public class ListarPeliculasController implements Initializable {
         // Mostrar mensaje si no hay resultados y al menos un criterio fue especificado
         boolean algunCriterioEspecificado = !tituloBusqueda.isEmpty() ||
                 !directorBusqueda.isEmpty() ||
-                !annoBusqueda.isEmpty() ||
+                !annoDesdeText.isEmpty() ||
+                !annoHastaText.isEmpty() ||
                 generoBusqueda != null;
 
         if (resultados.isEmpty() && algunCriterioEspecificado) {
             mostrarAlerta("Búsqueda", "No se encontraron películas que coincidan con los criterios de búsqueda");
         }
     }
+
 
     private void configurarGenero() {
         // Crear lista con null al inicio para representar "Todas"
@@ -258,6 +248,61 @@ public class ListarPeliculasController implements Initializable {
         cmbGenero.setValue(null);
     }
 
+    private void configurarValidacionAnios() {
+        // Validación para año desde
+        if (this.annoDesde != null) {
+            configurarValidacionCampoAnio(this.annoDesde);
+        }
+
+        // Validación para año hasta
+        if (this.annoHasta != null) {
+            configurarValidacionCampoAnio(this.annoHasta);
+        }
+    }
+
+    private void configurarValidacionCampoAnio(TextField campoAnio) {
+        // Validación en tiempo real
+        campoAnio.textProperty().addListener((_, oldValue, newValue) -> {
+            // Solo permitir números
+            if (!newValue.matches("\\d*")) {
+                campoAnio.setText(newValue.replaceAll("[^\\d]", ""));
+                return;
+            }
+
+            // Limitar a 4 dígitos máximo
+            if (newValue.length() > 4) {
+                campoAnio.setText(oldValue);
+                return;
+            }
+
+            // Validar rango cuando tiene 4 dígitos
+            if (newValue.length() == 4) {
+                try {
+                    int anno = Integer.parseInt(newValue);
+                    if (anno < 1 || anno > 9999) {
+                        campoAnio.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    campoAnio.setText(oldValue);
+                }
+            }
+        });
+
+        // Validación cuando pierde el foco
+        campoAnio.focusedProperty().addListener((obs, _, isNowFocused) -> {
+            if (!isNowFocused && !campoAnio.getText().isEmpty()) {
+                String texto = campoAnio.getText();
+                if (texto.length() < 4) {
+                    mostrarAlerta("Error de validación",
+                            "El año debe tener exactamente 4 dígitos");
+                    campoAnio.requestFocus();
+                }
+            }
+        });
+    }
+
+
+
     private void limpiarCampos() {
         // Limpiar cada campo verificando que no sea null
         if (this.titulo != null) {
@@ -268,8 +313,12 @@ public class ListarPeliculasController implements Initializable {
             this.director.clear();
         }
 
-        if (this.anno != null) {
-            this.anno.clear();
+        if (this.annoDesde != null) {
+            this.annoDesde.clear();
+        }
+
+        if (this.annoHasta != null) {
+            this.annoHasta.clear();
         }
 
         if (this.cmbGenero != null) {

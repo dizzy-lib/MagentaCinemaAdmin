@@ -27,8 +27,13 @@
 
             <HBox spacing="16">
                 <VBox spacing="4">
-                    <Label>Año</Label>
-                    <TextField fx:id="anno" promptText="2023" />
+                    <Label>Año desde</Label>
+                    <TextField fx:id="annoDesde" promptText="1990" />
+                </VBox>
+
+                <VBox spacing="4">
+                    <Label>Año hasta</Label>
+                    <TextField fx:id="annoHasta" promptText="2025" />
                 </VBox>
 
                 <VBox spacing="4">
