@@ -6,12 +6,32 @@
 Para levantar el proyecto en local se debe crear un archivo `.env` en el directorio principal (a nivel del archivo `.env.example`).
 
 Variables a configurar:
-- DATABASE_URL
-- DATABASE_USERNAME
-- DATABASE_PASSWORD
+- DB_HOST
+- DB_PORT
+- DB_NAME
+- DB_USER
+- DB_PASSWORD
 
 Con esta información se podrá lograr una conexión con la base de datos y poder ejecutar las transacciones.
 
+## Docker compose
+
+> Este paso es opcional, solo si quieres levantar la DB con docker, en otro caso puedes
+> seguir utilizando MySQL Workbench o PHPMyadmin
+
+La base de datos MySQL se puede inicializar con docker-compose para ello úbicate en la raiz del proyecto e inicializa 
+con el siguiente comando la base de datos
+
+```shell
+    docker-compose up -d
+```
+
+> No te olvides de haber antes configurado las variables de entorno en el archivo `.env`
+
+Para apagar la instancia de docker puedes utilizar el siguiente comando
+```shell
+  docker-compose down -v
+```
 
 ## Estructura
 El archivo con el cual se debe inicializar el aplicativo es `Launcher.java` este vendría a ser el punto de entrada de la
