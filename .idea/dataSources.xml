@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Cine db" uuid="a0081fbe-6f88-405d-8c01-596ab6e5b613">
+    <data-source source="LOCAL" name="MAGENTA_CINEMA" uuid="a0081fbe-6f88-405d-8c01-596ab6e5b613">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Conexión a base de datos para proyecto de programación orientada a objetos</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/cine_db</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/CINE_DB</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
