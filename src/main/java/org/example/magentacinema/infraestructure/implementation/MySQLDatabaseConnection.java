@@ -12,18 +12,10 @@ import java.sql.SQLException;
  */
 public class MySQLDatabaseConnection implements DatabaseConnection {
     private final AppConfig appConfig;
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
     public MySQLDatabaseConnection() {
         // Configura para la lectura de variables de entorno
         this.appConfig = new AppConfig();
-
-        // Carga el driver de MySQL
-        try {
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException("Error al cargar el driver de MySQL..." + e.getMessage());
-        }
     }
 
     @Override
