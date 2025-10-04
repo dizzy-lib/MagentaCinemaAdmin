@@ -24,7 +24,7 @@ public class AppConfig {
 
     private void validateRequiredVars() {
         String[] requiredVars = {
-                "DATABASE_URL", "DATABASE_USERNAME", "DATABASE_PASSWORD"
+                "DB_HOST", "DB_PORT", "DB_NAME", "DB_USER", "DB_PASSWORD"
         };
 
         for (String var : requiredVars) {
@@ -39,15 +39,9 @@ public class AppConfig {
     }
 
     // Getters específicos
-    public String getDatabaseUrl() {
-        return get("DATABASE_URL");
-    }
-
-    public String getDatabaseUsername() {
-        return get("DATABASE_USERNAME");
-    }
-
-    public String getDatabasePassword() {
-        return get("DATABASE_PASSWORD");
-    }
+    public String getDatabaseHost() { return get("DB_HOST"); }
+    public String getDatabasePort() { return get("DB_PORT"); }
+    public String getDatabaseName() { return get("DB_NAME"); }
+    public String getDatabaseUser() { return get("DB_USER"); }
+    public String getDatabasePassword() { return get("DB_PASSWORD"); }
 }

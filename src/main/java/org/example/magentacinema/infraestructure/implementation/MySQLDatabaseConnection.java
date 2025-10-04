@@ -28,9 +28,15 @@ public class MySQLDatabaseConnection implements DatabaseConnection {
 
     @Override
     public Connection getConnection() throws SQLException {
+        String databaseUrl = String.format("jdbc:mysql://%s:%s/%s",
+                this.appConfig.getDatabaseHost(),
+                this.appConfig.getDatabasePort(),
+                this.appConfig.getDatabaseName()
+        );
+
         Connection connection = DriverManager.getConnection(
-                this.appConfig.getDatabaseUrl(),
-                this.appConfig.getDatabaseUsername(),
+                databaseUrl,
+                this.appConfig.getDatabaseUser(),
                 this.appConfig.getDatabasePassword()
         );
 
