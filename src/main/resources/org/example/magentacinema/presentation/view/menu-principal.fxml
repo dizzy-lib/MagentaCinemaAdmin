@@ -22,7 +22,7 @@
                 <Button prefWidth="200" onAction="#onListarPeliculas" fx:id="btnListarPeliculas">Listar películas</Button>
             </VBox>
             <VBox>
-                <Label>Desripción del proyecto</Label>
+                <Label>Proyecto Magenta Cinema Admin</Label>
             </VBox>
         </HBox>
     </VBox>
