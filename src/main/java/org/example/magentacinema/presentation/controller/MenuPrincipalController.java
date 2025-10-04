@@ -67,4 +67,20 @@ public class MenuPrincipalController {
             System.out.println("Error al cargar vista para eliminar película");
         }
     }
+
+    @FXML
+    protected void onListarPeliculas() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MagentaApplication.class.getResource("listar-peliculas.fxml"));
+
+            Parent root = fxmlLoader.load();
+
+            // Obtener la ventana actual y cambiar la escena
+            Stage stage = (Stage) btnAgregarPelicula.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Magenta Cinema - Todas las películas");
+        } catch (IOException e) {
+            System.out.println("Error al cargar vista para listar todas las película");
+        }
+    }
 }

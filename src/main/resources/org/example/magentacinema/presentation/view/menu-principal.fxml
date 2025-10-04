@@ -19,6 +19,7 @@
                 <Button prefWidth="200" onAction="#onAgregarPelicula" fx:id="btnAgregarPelicula">Agregar película</Button>
                 <Button prefWidth="200" onAction="#onModificarPelicula" fx:id="btnModificarPelicula">Modificar película</Button>
                 <Button prefWidth="200" onAction="#onEliminarPelicula" fx:id="btnEliminarPelicula">Eliminar película</Button>
+                <Button prefWidth="200" onAction="#onListarPeliculas" fx:id="btnListarPeliculas">Listar películas</Button>
             </VBox>
             <VBox>
                 <Label>Desripción del proyecto</Label>
